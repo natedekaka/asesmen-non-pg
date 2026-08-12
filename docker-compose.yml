@@ -1,0 +1,61 @@
+services:
+  app:
+    build: .
+    container_name: asesmen-nonpg-app
+    ports:
+      - "9320:80"
+    volumes:
+      - .:/var/www/html:z
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: rootpass
+      DB_NAME: asesmen_non_pg
+      TZ: Asia/Jakarta
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - asesmen-net
+
+  db:
+    image: docker.io/library/mariadb:10.11
+    container_name: asesmen-nonpg-db
+    ports:
+      - "3320:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: asesmen_non_pg
+      TZ: Asia/Jakarta
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - asesmen-dbdata:/var/lib/mysql:z
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - asesmen-net
+
+  phpmyadmin:
+    image: docker.io/library/phpmyadmin:latest
+    container_name: asesmen-nonpg-pma
+    ports:
+      - "9321:80"
+    environment:
+      PMA_HOST: db
+      PMA_ARBITRARY: 1
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - asesmen-net
+
+volumes:
+  asesmen-dbdata:
+
+networks:
+  asesmen-net:
+    driver: bridge
