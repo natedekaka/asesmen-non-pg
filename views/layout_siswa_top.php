@@ -15,8 +15,10 @@
         <span class="text-sm text-slate-300">Area Siswa</span>
       </div>
       <div class="flex items-center gap-3 text-sm">
+        <a href="/siswa/pengumuman.php" class="rounded-md px-3 py-1.5 hover:bg-slate-700">📢 Pengumuman</a>
+        <a href="/siswa/profil.php" class="rounded-md px-3 py-1.5 hover:bg-slate-700">👤 Profil</a>
         <span class="text-slate-300"><?= e($_SESSION['siswa_nama'] ?? '') ?> (<?= e($_SESSION['siswa_nis'] ?? '') ?>)</span>
-        <a href="/logout.php" class="rounded-md bg-slate-700 px-3 py-1.5 hover:bg-slate-600">Keluar</a>
+        <a href="/logout_siswa.php" class="rounded-md bg-slate-700 px-3 py-1.5 hover:bg-slate-600">Keluar</a>
       </div>
     </div>
   </nav>

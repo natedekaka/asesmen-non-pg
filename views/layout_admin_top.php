@@ -16,7 +16,7 @@
       </div>
       <div class="flex items-center gap-3 text-sm">
         <span class="text-slate-300"><?= e($_SESSION['admin_nama'] ?? '') ?></span>
-        <a href="/logout.php" class="rounded-md bg-slate-700 px-3 py-1.5 hover:bg-slate-600">Keluar</a>
+        <a href="/logout_admin.php" class="rounded-md bg-slate-700 px-3 py-1.5 hover:bg-slate-600">Keluar</a>
       </div>
     </div>
   </nav>
@@ -25,9 +25,12 @@
       <a href="/admin/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Dashboard</a>
       <a href="/admin/soal/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Bank Soal</a>
       <a href="/admin/ujian/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Ujian</a>
-      <a href="/admin/siswa/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Siswa</a>
-      <a href="/admin/kelas/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Kelas</a>
+      <a href="/admin/kelola_siswa.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Siswa</a>
+      <a href="/admin/kelola_kelas.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Kelas</a>
       <a href="/admin/koreksi/index.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Koreksi & Nilai</a>
+      <a href="/admin/rekap_nilai.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Rekap Nilai</a>
+      <a href="/admin/pengumuman.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Pengumuman</a>
+      <a href="/admin/monitor_ujian.php" class="rounded-lg border border-slate-300 bg-white px-3 py-2 hover:bg-slate-50">Monitor Ujian</a>
     </div>
     <?= umumkan_alert('sukses') ?>
     <?= umumkan_alert('error') ?>
