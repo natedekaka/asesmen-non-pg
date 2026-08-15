@@ -1,3 +1,5 @@
+name: asesmen-non-pg
+
 services:
   app:
     build: .
@@ -29,7 +31,7 @@ services:
       TZ: Asia/Jakarta
     volumes:
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-      - asesmen-dbdata:/var/lib/mysql:z
+      - asesmen-dbdata:/var/lib/mysql
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s

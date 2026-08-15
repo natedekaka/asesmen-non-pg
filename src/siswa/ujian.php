@@ -70,7 +70,8 @@ window.ASESMEN_CONFIG = {
   sesiId: <?= (int)$id_sesi ?>,
   ujianId: <?= (int)$sesi['id_ujian'] ?>,
   sisaDetik: <?= (int)$sisa_detik ?>,
-  siswaId: <?= (int)$siswa_id ?>
+  siswaId: <?= (int)$siswa_id ?>,
+  csrfToken: <?= json_encode(csrf_token()) ?>
 };
 </script>
 </head>

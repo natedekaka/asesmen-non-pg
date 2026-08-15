@@ -4,6 +4,9 @@ require_once __DIR__ . '/../core/init.php';
 if (!isset($_SESSION['siswa_id'])) {
     json_response(['ok' => false, 'error' => 'Sesi siswa tidak ada.'], 401);
 }
+if (!verify_csrf($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '')) {
+    json_response(['ok' => false, 'error' => 'Token CSRF tidak valid.'], 403);
+}
 
 $json = json_decode(file_get_contents('php://input'), true);
 if (!is_array($json)) {

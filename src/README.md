@@ -44,9 +44,12 @@ dengan sistem **koreksi hybrid** (otomatis + manual).
 
 PHP 8.2 (Apache), MariaDB 10.11, Tailwind CSS v4, Docker Compose.
 
+Tampilan mengikuti gaya `exam6lock/`: **sidebar admin** dengan menu berkelompok (Ringkasan, Ujian, Nilai & Analisis, Data Master, Pengaturan), **stat cards** berikon & berwarna dengan efek hover, **halaman login glassmorphism** bergradien, dan **navbar siswa** putih modern. CSS tambahan ada di `assets/css/theme.css`.
+
 ## Cara Menjalankan
 
 ```bash
+cd src
 docker compose up -d
 ```
 
@@ -58,10 +61,11 @@ docker compose up -d
 
 ### Login
 
-**Siswa:**
-- NIS: `23001` / Password: `23001`
-- NIS: `23002` / Password: `23002`
-- NIS: `23003` / Password: `23003`
+**Siswa:** data siswa = data `exam6lock` (1.493 siswa, 34 kelas `X-1`…`XII-11`). Password siswa = password aslinya di exam6lock (default = NIS).
+
+Contoh login siswa:
+- NIS: `23001` / Password: `23001` (seed asesmen)
+- NIS: `242510001` / Password: `242510001` (dari exam6lock)
 
 **Admin:**
 - Username: `admin` / Password: `admin123`
@@ -69,8 +73,9 @@ docker compose up -d
 ## Struktur
 
 ```
+src/
 config/          # database.php (env DB_HOST/DB_USER/DB_PASS/DB_NAME)
-core/            # Database.php, functions.php, init.php
+core/            # Database.php, functions.php, init.php (+ helper CSRF)
 db/
   schema.sql     # skema + data awal
   migrations/    # file migrasi SQL
@@ -101,8 +106,8 @@ siswa/           # area siswa
   ganti_password.php # ganti password
   pengumuman.php     # lihat pengumuman
 api/             # autosave.php, submit.php
-views/           # partial layout admin & siswa + Tailwind v4
-assets/          # css (main.css → app.css via Tailwind CLI), js/ujian.js
+views/           # layout admin/siswa, admin_sidebar.php (menu + active state)
+assets/          # css (main.css → app.css via Tailwind CLI, theme.css), js/ujian.js
 ```
 
 ## Pengembangan CSS (Tailwind v4)
@@ -114,13 +119,14 @@ npm run dev        # mode watch
 ```
 
 Jangan mengedit `assets/css/app.css` — edit `assets/css/main.css` lalu build.
+`assets/css/theme.css` berisi gaya khusus (sidebar, stat cards, login, navbar siswa) dan dimuat setelah `app.css`.
 
 ## Migrasi Database
 
 Jalankan migrasi baru jika ada perubahan skema:
 
 ```bash
-mysql -u root -prootpass asesmen_non_pg < db/migrations/001_add_pengumuman.sql
+docker compose exec -T db mariadb -u root -prootpass asesmen_non_pg < db/migrations/001_add_pengumuman.sql
 ```
 
 ## Catatan

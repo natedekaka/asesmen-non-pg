@@ -7,6 +7,13 @@
   var sisaDetik = cfg.sisaDetik;
   var baseUrl = '/';
 
+  function headersJson() {
+    return {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': cfg.csrfToken || ''
+    };
+  }
+
   var timerEl = document.getElementById('timer');
   var statusEl = document.getElementById('status-simpan');
   var btnSubmit = document.getElementById('btn-submit');
@@ -100,7 +107,7 @@
     setStatusTeks('Menyimpan...', 'text-amber-600');
     return fetch(baseUrl + 'api/autosave.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headersJson(),
       body: JSON.stringify({ sesi_id: sesiId, jawaban: data })
     }).then(function (r) { return r.json(); }).then(function (res) {
       if (res && res.ok) {
@@ -128,7 +135,7 @@
     if (btnSubmitBawah) btnSubmitBawah.disabled = true;
     fetch(baseUrl + 'api/submit.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headersJson(),
       body: JSON.stringify({ sesi_id: sesiId, jawaban: data })
     }).then(function (r) { return r.json(); }).then(function (res) {
       if (res && res.ok) {
@@ -197,7 +204,7 @@
   // Autosave berkala (tiap 20 detik) + sebelum menutup halaman
   setInterval(function () { if (document.visibilityState === 'visible') kirimSimpan(); }, 20000);
   window.addEventListener('beforeunload', function (ev) {
-    navigator.sendBeacon(baseUrl + 'api/autosave.php', new Blob([JSON.stringify({ sesi_id: sesiId, jawaban: nilaiSaatIni() })], { type: 'application/json' }));
+    navigator.sendBeacon(baseUrl + 'api/autosave.php', new Blob([JSON.stringify({ sesi_id: sesiId, jawaban: nilaiSaatIni(), csrf_token: cfg.csrfToken })], { type: 'application/json' }));
   });
 
   // Mulai timer + simpan pertama
