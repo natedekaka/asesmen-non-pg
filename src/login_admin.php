@@ -80,10 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </form>
 
-    <div class="mt-5 login-note">
-      Default: <code class="rounded bg-slate-200 px-1 py-0.5">admin</code> / <code class="rounded bg-slate-200 px-1 py-0.5">admin123</code>
-      <br>Ganti kata sandi setelah masuk untuk keamanan.
-    </div>
+<div class="mt-5 login-note">
+      Ganti kata sandi setelah masuk untuk keamanan.
+</div>
 
     <div class="mt-4 text-center login-switch">
       <a href="/login_siswa.php">← Masuk sebagai Siswa</a>
